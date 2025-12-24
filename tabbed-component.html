@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabbed component</title>
+    <style>
+      :root {
+        --color-primary: #5ec576;
+        --color-secondary: #ffcb03;
+        --color-tertiary: #ff585f;
+        --color-primary-darker: #4bbb7d;
+        --color-secondary-darker: #ffbb00;
+        --color-tertiary-darker: #fd424b;
+        --color-primary-opacity: #5ec5763a;
+        --color-secondary-opacity: #ffcd0331;
+        --color-tertiary-opacity: #ff58602d;
+        --gradient-primary: linear-gradient(to top left, #39b385, #9be15d);
+        --gradient-secondary: linear-gradient(to top left, #ffb003, #ffcb03);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        color: #444;
+        line-height: 1.9;
+        background-color: #f3f3f3;
+      }
+      /* tabs wrapper */
+      .tabbed-container {
+        width: 800px;
+        margin: auto;
+        padding: 120px 0 0;
+        position: relative;
+      }
+      .tabs {
+        display: flex;
+        justify-content: space-around;
+        position: absolute;
+        width: 100%;
+        top: 90px;
+      }
+      .btn {
+        display: inline-block;
+        background-color: var(--color-primary);
+        font-size: 1.3rem;
+        font-weight: 500;
+        border: none;
+        padding: 1rem 3rem;
+        border-radius: 10rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .btn span {
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        background-color: var(--color-primary-darker);
+      }
+      .btn--2 {
+        background-color: var(--color-secondary);
+      }
+      .btn--2:hover {
+        background-color: var(--color-secondary-darker);
+      }
+      .btn--3 {
+        background-color: var(--color-tertiary);
+      }
+      .btn--3:hover {
+        background-color: var(--color-tertiary-darker);
+      }
+      /* end tab wrapper */
+      .tab-content-container {
+        background-color: #fff;
+      }
+      h3 {
+        font-size: 1rem;
+        color: #4444446b;
+      }
+      h1 {
+        line-height: 1;
+      }
+      p {
+        padding: 20px;
+      }
+
+      .tab-content {
+        display: none;
+      }
+      .active-tab {
+        text-align: center;
+        padding: 50px 50px 30px;
+        display: block;
+      }
+
+      .active-btn {
+        transform: translateY(-15%);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.171);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tabbed-container">
+      <div class="tabs">
+        <button class="btn btn--1 active-btn" data-tab="1">
+          <span>01</span> interest
+        </button>
+        <button class="btn btn--2" data-tab="2"><span>02</span> loans</button>
+        <button class="btn btn--3" data-tab="3">
+          <span>03</span> transfers
+        </button>
+      </div>
+      <div class="tab-content-container">
+        <div class="tab-content tab-content-1 active-tab">
+          <h3>label</h3>
+          <h1>Interest</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque
+            vitae, repudiandae asperiores nostrum voluptatibus quo ducimus! Iure
+            deleniti necessitatibus ipsum id assumenda. Voluptate exercitationem
+            vero amet neque quia illo aliquid.
+          </p>
+        </div>
+        <div class="tab-content tab-content-2">
+          <h3>label</h3>
+          <h1>Loans</h1>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            Necessitatibus quibusdam vel odio eos hic sed iusto totam nam,
+            excepturi ea quod delectus nulla nihil expedita temporibus commodi
+            accusamus ab tenetur unde praesentium quae corrupti libero? Ipsa,
+            dolor.
+          </p>
+        </div>
+        <div class="tab-content tab-content-3">
+          <h3>label</h3>
+          <h1>Transfers</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque
+            vitae, repudiandae asperiores nostrum voluptatibus quo ducimus! Iure
+            vitae, repudiandae asperiores nostrum voluptatibus quo ducimus! Iure
+            vitae, repudiandae asperiores nostrum voluptatibus quo ducimus! Iure
+            deleniti necessitatibus ipsum id assumenda. Voluptate exercitationem
+            vero amet neque quia illo aliquid.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const tabs = document.querySelector(".tabs");
+      const btns = document.querySelectorAll(".btn");
+      const content = document.querySelectorAll(".tab-content");
+
+      tabs.addEventListener("click", function (e) {
+        const clicked = e.target.closest(".btn");
+
+        if (!clicked) return;
+
+        // remove class
+        btns.forEach((b) => b.classList.remove("active-btn"));
+        content.forEach((c) => c.classList.remove("active-tab"));
+
+        // add class
+        clicked.classList.add("active-btn");
+        document
+          .querySelector(`.tab-content-${clicked.dataset.tab}`)
+          .classList.add("active-tab");
+      });
+    </script>
+  </body>
+</html>
