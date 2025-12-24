@@ -85,6 +85,27 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
   }
 });
 
+// tabbed component
+
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContent = document.querySelectorAll(".operations__content");
+
+tabsContainer.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".operations__tab");
+
+  if (!clicked) return;
+
+  tabs.forEach((t) => t.classList.remove("operations__tab--active"));
+  tabsContent.forEach((c) => c.classList.remove("operations__content--active"));
+
+  clicked.classList.add("operations__tab--active");
+
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add("operations__content--active");
+});
+
 /////////////////////////////////////////
 
 // Selecting, Creating, and Deleting Elements
@@ -202,30 +223,30 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
 
 // traversing
 
-const h1 = document.querySelector("h1");
+// const h1 = document.querySelector("h1");
 
-// going downwards: child
+// // going downwards: child
 
-console.log(h1.querySelectorAll(".highlight"));
-// console.log(h1.childNodes);
-console.log(h1.children);
+// console.log(h1.querySelectorAll(".highlight"));
+// // console.log(h1.childNodes);
+// console.log(h1.children);
 
-h1.firstElementChild.style.color = "white";
-h1.lastElementChild.style.color = "orangered";
+// h1.firstElementChild.style.color = "white";
+// h1.lastElementChild.style.color = "orangered";
 
-// going upwards: parents
+// // going upwards: parents
 
-console.log(h1.parentNode);
-console.log(h1.parentElement);
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
 
-h1.closest(".header").style.background = "var(--gradient-secondary)";
+// h1.closest(".header").style.background = "var(--gradient-secondary)";
 
-// going sideways: sibilings
+// // going sideways: sibilings
 
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
 
-console.log(h1.parentElement.children);
-[...h1.parentElement.children].forEach(function (el) {
-  if (el !== h1) el.style.transform = "scale(0.5)";
-});
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = "scale(0.5)";
+// });
