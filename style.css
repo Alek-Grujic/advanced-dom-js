@@ -122,12 +122,36 @@ img {
   width: 100%;
   padding: 0 6rem;
   z-index: 100;
+  transition: transform 0.25s, opacity 0.25s;
+}
+/* vidljivo (fade in) */
+.nav.nav--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* skriveno (fade out) */
+.nav.sticky:not(.nav--visible) {
+  opacity: 0;
+  transform: translateY(-15px);
 }
 
 /* nav and stickly class at the same time */
 .nav.sticky {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.95);
+  animation: navFade 0.25s ease-out;
+}
+
+@keyframes navFade {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .nav__logo {
