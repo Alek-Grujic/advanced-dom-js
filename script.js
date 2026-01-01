@@ -205,6 +205,36 @@ allSections.forEach((section) => {
   section.classList.add("section--hidden");
 });
 
+// lazy image loader
+
+const images = document.querySelectorAll(".features__img");
+
+function lazyLoader(entries, observer) {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+
+    entry.target.addEventListener("load", function (e) {
+      e.target.classList.remove("lazy-img");
+    });
+
+    // const dataSrc = entry.target.getAttribute("data-src");
+    // entry.target.setAttribute("src", dataSrc);
+
+    entry.target.src = entry.target.dataset.src;
+
+    observer.unobserve(entry.target);
+  });
+}
+
+const imageObserver = new IntersectionObserver(lazyLoader, {
+  root: null,
+  threshold: 0.5,
+});
+
+images.forEach((i) => {
+  imageObserver.observe(i);
+});
+
 /////////////////////////////////////////
 
 // Selecting, Creating, and Deleting Elements
