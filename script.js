@@ -235,6 +235,108 @@ images.forEach((i) => {
   imageObserver.observe(i);
 });
 
+// slider
+
+function slider() {
+  const slides = document.querySelectorAll(".slide");
+  const leftBtn = document.querySelector(".slider__btn--left");
+  const rightBtn = document.querySelector(".slider__btn--right");
+  const dotContainer = document.querySelector(".dots");
+
+  let currSlide = 0;
+
+  // dots functionalities
+
+  function createDots() {
+    slides.forEach((_, i) => {
+      dotContainer.insertAdjacentHTML(
+        "beforeend",
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
+  }
+  createDots();
+
+  const dots = document.querySelectorAll(".dots__dot");
+
+  function activeDot() {
+    // dots.forEach((dot) => {
+    //   dot.classList.remove("dots__dot--active");
+    //   if (Number(dot.dataset.slide) === currSlide)
+    //     dot.classList.add("dots__dot--active");
+    // });
+    dots.forEach((dot) => dot.classList.remove("dots__dot--active"));
+    const active = document.querySelector(
+      `.dots__dot[data-slide='${currSlide}']`
+    );
+    if (active) active.classList.add("dots__dot--active");
+  }
+
+  activeDot();
+
+  dotContainer.addEventListener("click", function (e) {
+    if (e.target.classList.contains("dots__dot")) {
+      currSlide = Number(e.target.dataset.slide);
+      goToSlide(currSlide);
+      activeDot();
+    }
+  });
+
+  function goToSlide(i) {
+    slides.forEach((slide, index) => {
+      let slidePosition = 100 * (index - i);
+      slide.style.transform = `translateX(${slidePosition}%)`;
+    });
+  }
+  goToSlide(currSlide);
+
+  // rightBtn.addEventListener("click", function () {
+  //   if (currSlide === slides.length - 1) {
+  //     currSlide = 0;
+  //     goToSlide(currSlide);
+  //     return;
+  //   }
+  //   currSlide += 1;
+  //   goToSlide(currSlide);
+  // });
+
+  // leftBtn.addEventListener("click", function () {
+  //   if (currSlide === 0) {
+  //     currSlide = slides.length - 1;
+  //     goToSlide(currSlide);
+  //     return;
+  //   }
+  //   currSlide -= 1;
+  //   goToSlide(currSlide);
+  // });
+
+  // version with one function
+
+  function moveSlide(a) {
+    currSlide += a;
+    const maxSlide = slides.length - 1;
+
+    dotContainer.querySelector(".dots__");
+
+    if (currSlide < 0) currSlide = maxSlide;
+    if (currSlide > maxSlide) currSlide = 0;
+
+    goToSlide(currSlide);
+  }
+
+  rightBtn.addEventListener("click", function () {
+    moveSlide(+1);
+    activeDot();
+  });
+
+  leftBtn.addEventListener("click", function () {
+    moveSlide(-1);
+    activeDot();
+  });
+}
+
+slider();
+
 /////////////////////////////////////////
 
 // Selecting, Creating, and Deleting Elements
